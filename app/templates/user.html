@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="page-header">
+	{% if user %}
+		<h1>Hello, {{ user }}</h1>
+	{% else %}
+		<h1>come on baby</h1>
+	{% endif %}
+</div>
+{% endblock %}

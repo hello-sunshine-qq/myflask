@@ -1,0 +1,49 @@
+{% extends "bootstrap/base.html" %}
+
+{%block title%}我的博客{% endblock %}
+
+{% block navbar %}
+<!--反色导航条-->
+<div class="navbar navbar-inverse" role="navigation">
+  <div class="container">
+	<div class="navbar-header">
+	<!-- .navbar-toggle样式用于toggle收缩的内容，即nav-collapse collapse样式所在元素 -->
+	<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#demo">
+		<span class="sr-only">Toggle Navigation</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	</button>
+	<a href="/" class="navbar-brand">我的博客</a>
+	</div>
+	<div class="collapse navbar-collapse navbar-responsive-collapse" id="demo">
+		<ul class="nav navbar-nav">
+			<li><a href="/">首页</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="{{ url_for('auth.register') }}">注册</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			{% if current_user.is_authenticated %}
+			<li><a href="{{ url_for('auth.logout') }}">注销</a></li>
+			<li><a href="{{ url_for('auth.change_password') }}">修改密码</a></li>
+			{% else %}
+			<li><a href="{{ url_for('auth.login') }}">登录</a></li>
+			{% endif %}
+		</ul>
+	</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	{% for message in get_flashed_messages() %}
+	<div class="alert alert-warning">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		{{ message }}
+	</div>
+	{% endfor %}
+	{% block page_content %}{% endblock %}
+</div>
+{% endblock %}
